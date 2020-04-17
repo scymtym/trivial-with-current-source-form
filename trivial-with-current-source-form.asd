@@ -16,5 +16,6 @@
                  :serial     t
                  :components ((:file       "package")
                               (:file       "sbcl"        :if-feature :sbcl)
-                              (:file       "unsupported" :if-feature (:not :sbcl))
+                              (:file       "clasp"       :if-feature :clasp)
+                              (:file       "unsupported" :if-feature (:not (:or :clasp :sbcl)))
                               (:file       "macro")))))
