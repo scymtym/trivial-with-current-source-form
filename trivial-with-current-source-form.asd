@@ -1,12 +1,12 @@
 ;;;; trivial-with-current-source-form.asd --- System definition for the trivial-with-current-source-form system.
 ;;;;
-;;;; Copyright (C) 2014-2019 Jan Moringen
+;;;; Copyright (C) 2014-2021 Jan Moringen
 ;;;;
 ;;;; Author: Jan Moringen <jmoringe@techfak.uni-bielefeld.de>
 
 (defsystem "trivial-with-current-source-form"
   :description "Helps macro writers produce better errors for macro users"
-  :license     "GPLv3"                  ; see COPYING for details
+  :license     "LGPLv3" ; see COPYING for details
   :author      "Jan Moringen <jmoringe@techfak.uni-bielefeld.de>"
 
   :version     (:read-file-form "version-string.sexp")
