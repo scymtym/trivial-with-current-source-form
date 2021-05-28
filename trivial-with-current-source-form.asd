@@ -12,7 +12,7 @@
   :version     (:read-file-form "version-string.sexp")
   :depends-on  ("alexandria")
 
-  :components  ((:module     "src"
+  :components  ((:module     "code"
                  :serial     t
                  :components ((:file       "package")
                               (:file       "sbcl"        :if-feature :sbcl)
