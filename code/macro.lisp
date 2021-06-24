@@ -1,13 +1,13 @@
 ;;;; macro.lisp --- Macros provided by the trivial-with-current-source-form system.
 ;;;;
-;;;; Copyright (C) 2020 Jan Moringen
+;;;; Copyright (C) 2020, 2021 Jan Moringen
 ;;;;
 ;;;; Author: Jan Moringen <jmoringe@techfak.uni-bielefeld.de>
 
 (cl:in-package #:trivial-with-current-source-form)
 
 (defmacro with-current-source-form ((form &rest forms) &body body)
-  "In a macroexpander, indicate that FORMS are being processed by BODY.
+  "In a macroexpander, indicate that FORM, FORMS are being processed by BODY.
 
 FORMS are usually sub-forms of the whole form passed to the expander.
 

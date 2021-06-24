@@ -97,7 +97,7 @@
   #+BEGIN_EXAMPLE
   with-current-source-form (FORM &REST FORMS) &BODY BODY
 
-  In a macroexpander, indicate that FORMS are being processed by BODY.
+  In a macroexpander, indicate that FORM, FORMS are being processed by BODY.
 
   FORMS are usually sub-forms of the whole form passed to the expander.
 
