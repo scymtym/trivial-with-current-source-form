@@ -8,11 +8,10 @@
   #+BEGIN_QUOTE
     Note: While this library can be loaded into and used in any Common
     Lisp implementation, the improved behavior described below is only
-    available in SBCL and only in relatively recent versions (1.3.13
-    and newer).
+    available in [[https://github.com/clasp-developers/clasp][CLASP]] and [[http://www.sbcl.org][SBCL]] (only in versions 1.3.13 and newer).
   #+END_QUOTE
 
-  For example, consider the following macro 
+  For example, consider the following macro
 
   #+BEGIN_SRC lisp
     (defmacro even-number-case (value &body clauses)
@@ -26,7 +25,7 @@
                                ,@body)))
                          clauses))))
   #+END_SRC
-  
+
   This is fine if the expansion does not signal an error. If it does,
   however, it is not immediately clear which of the clauses (if any)
   caused the error:
@@ -52,7 +51,7 @@
   ~with-current-source-form~ macro. The macro is intended to surround
   parts of macro expanders that process certain sub-forms of the form
   passed to the expander:
-  
+
   #+BEGIN_SRC lisp
     (defmacro even-number-case (value &body clauses)
       "Like `cl:case' but each key has to be an even number."
@@ -66,7 +65,7 @@
                                  ,@body))))
                          clauses))))
   #+END_SRC
-  
+
   The effect of the above change is that the implementation can now
   report a more useful location when reporting the error during macro
   expansion. Other tools like SLIME benefit from this as well:
