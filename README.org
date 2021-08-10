@@ -44,7 +44,7 @@
 
   The problem is not very hard to spot in the above code, but think of
   macros for declaring complex things like ~cl:defpackage~ or
-  ~cl:defclass~ or macros for domain specific languages and the
+  ~cl:defclass~ or macros for domain specific languages, and the
   problem becomes more severe.
 
   The mechanism provided by this library is the
@@ -68,7 +68,8 @@
 
   The effect of the above change is that the implementation can now
   report a more useful location when reporting the error during macro
-  expansion. Other tools like SLIME benefit from this as well:
+  expansion. Other tools like SLIME benefit from this functionality as
+  well:
 
   [[file:pictures/better-expansion-error.png]]
 
