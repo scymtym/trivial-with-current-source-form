@@ -73,13 +73,37 @@
 
   [[file:pictures/better-expansion-error.png]]
 
-* TODO Tutorial
+* Tutorial
+
+  Since the example given in the [[*Introduction]] should explain the
+  basic usage of this library, here are just a few additional hints:
+
+  + ~trivial-with-current-source-form:with-current-source-form~
+    optionally accepts additional source forms besides the mandatory
+    one. The reason for this mechanism is that a Common Lisp
+    implementation may be unable to produce a source location for the
+    most specific source form, for example if that form is a symbol or
+    a number. In such cases, the client may be able to help the
+    implementation by providing additional, less specific source forms
+    which contain the first form as sub-forms.
+
+    For example, if a macro expansion function detects a problem with
+    ~foo~ (bound to, say, ~head~ in the expansion function) in ~(foo
+    bar baz)~ (bound to ~call~ in the expansion function), the
+    expansion function could provide the source information as
+
+    #+BEGIN_SRC
+      (trivial-with-current-source-form:with-current-source-form (head call)
+        …)
+    #+END_SRC
+
+    in case the implementation cannot handle just ~head~.
 
 * Reference
 
   #+BEGIN_SRC lisp :results none :exports none
     #.(progn
-        #1=(ql:quickload '(:trivial-with-current-source-form :alexandria :split-sequence))
+        #1=(ql:quickload '("trivial-with-current-source-form" "alexandria" "split-sequence"))
         '#1#)
     (defun doc (symbol kind)
       (let* ((lambda-list (sb-introspect:function-lambda-list symbol))
