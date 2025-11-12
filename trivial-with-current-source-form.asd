@@ -10,7 +10,6 @@
   :author      "Jan Moringen <jmoringe@techfak.uni-bielefeld.de>"
 
   :version     (:read-file-form "version-string.sexp")
-  :depends-on  ("alexandria")
 
   :components  ((:module     "code"
                  :serial     t

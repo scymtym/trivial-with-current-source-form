@@ -16,14 +16,15 @@
   #+BEGIN_SRC lisp
     (defmacro even-number-case (value &body clauses)
       "Like `cl:case' but each key has to be an even number."
-      (alexandria:once-only (value)
-        `(cond ,@(mapcar (lambda (clause)
-                           (destructuring-bind (number &rest body) clause
-                             (unless (evenp number)
-                               (error "Only even numbers are allowed."))
-                             `((= ,value ,number)
-                               ,@body)))
-                         clauses))))
+      (let ((value-var (gensym "VALUE")))
+        `(let ((,value-var ,value))
+           (cond ,@(mapcar (lambda (clause)
+                             (destructuring-bind (number &rest body) clause
+                               (unless (evenp number)
+                                 (error "Only even numbers are allowed."))
+                               `((= ,value-var ,number)
+                                 ,@body)))
+                           clauses)))))
   #+END_SRC
 
   This is fine if the expansion does not signal an error. If it does,
@@ -55,15 +56,16 @@
   #+BEGIN_SRC lisp
     (defmacro even-number-case (value &body clauses)
       "Like `cl:case' but each key has to be an even number."
-      (alexandria:once-only (value)
-        `(cond ,@(mapcar (lambda (clause)
-                           (trivial-with-current-source-form:with-current-source-form (clause)
-                             (destructuring-bind (number &rest body) clause
-                               (unless (evenp number)
-                                 (error "Only even numbers are allowed."))
-                               `((= ,value ,number)
-                                 ,@body))))
-                         clauses))))
+      (let ((value-var (gensym "VALUE")))
+        `(let ((,value-var ,value))
+           (cond ,@(mapcar (lambda (clause)
+                             (trivial-with-current-source-form:with-current-source-form (clause)
+                               (destructuring-bind (number &rest body) clause
+                                 (unless (evenp number)
+                                   (error "Only even numbers are allowed."))
+                                 `((= ,value-var ,number)
+                                   ,@body))))
+                           clauses)))))
   #+END_SRC
 
   The effect of the above change is that the implementation can now
@@ -103,13 +105,13 @@
 
   #+BEGIN_SRC lisp :results none :exports none
     #.(progn
-        #1=(ql:quickload '("trivial-with-current-source-form" "alexandria" "split-sequence"))
+        #1=(ql:quickload '("trivial-with-current-source-form" "split-sequence"))
         '#1#)
     (defun doc (symbol kind)
       (let* ((lambda-list (sb-introspect:function-lambda-list symbol))
              (string      (documentation symbol kind))
              (lines       (split-sequence:split-sequence #\Newline string))
-             (trimmed     (mapcar (alexandria:curry #'string-left-trim '(#\Space)) lines)))
+             (trimmed     (mapcar (lambda (line) (string-left-trim '(#\Space) line)) lines)))
         (format nil "~(~A~) ~<~{~A~^ ~}~:@>~2%~{~A~^~%~}"
                 symbol (list lambda-list) trimmed)))
   #+END_SRC
