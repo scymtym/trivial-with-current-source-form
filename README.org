@@ -105,12 +105,16 @@
 
   #+BEGIN_SRC lisp :results none :exports none
     #.(progn
-        #1=(ql:quickload '("trivial-with-current-source-form" "split-sequence"))
+        #1=(ql:quickload '("trivial-with-current-source-form"))
         '#1#)
     (defun doc (symbol kind)
       (let* ((lambda-list (sb-introspect:function-lambda-list symbol))
              (string      (documentation symbol kind))
-             (lines       (split-sequence:split-sequence #\Newline string))
+             (lines       (loop :for start = 0 :then (1+ end)
+                                :for end = (position #\Newline string :start start)
+                                :while end
+                                :collect (subseq string start end) :into lines
+                                :finally (return (nconc lines (list (subseq string start))))))
              (trimmed     (mapcar (lambda (line) (string-left-trim '(#\Space) line)) lines)))
         (format nil "~(~A~) ~<~{~A~^ ~}~:@>~2%~{~A~^~%~}"
                 symbol (list lambda-list) trimmed)))
