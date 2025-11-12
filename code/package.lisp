@@ -2,7 +2,7 @@
 ;;;;
 ;;;; Copyright (C) 2020 Jan Moringen
 ;;;;
-;;;; Author: Jan Moringen <jmoringe@techfak.uni-bielefeld.de>
+;;;; Author: Jan Moringen
 
 (cl:defpackage #:trivial-with-current-source-form
   (:use

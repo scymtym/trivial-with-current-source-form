@@ -2,12 +2,12 @@
 ;;;;
 ;;;; Copyright (C) 2014-2023 Jan Moringen
 ;;;;
-;;;; Author: Jan Moringen <jmoringe@techfak.uni-bielefeld.de>
+;;;; Author: Jan Moringen
 
 (defsystem "trivial-with-current-source-form"
   :description "Helps macro writers produce better errors for macro users"
   :license     "MIT" ; see COPYING for details
-  :author      "Jan Moringen <jmoringe@techfak.uni-bielefeld.de>"
+  :author      "Jan Moringen"
 
   :version     (:read-file-form "version-string.sexp")
 
